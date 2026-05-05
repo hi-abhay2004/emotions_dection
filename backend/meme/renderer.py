@@ -6,13 +6,13 @@ from typing import Any
 
 # Emotion -> Meme Template Mapping
 MEME_TEMPLATES = {
-    "happy": ["success", "doge", "awesome", "harold"],
-    "sad": ["sad-biden", "crying-cat", "disastergirl", "sad-keanu"],
-    "angry": ["grumpycat", "angry", "buzz", "disastergirl"],
-    "surprised": ["pikachu", "yuno", "distracted-bf"],
-    "neutral": ["fine", "spongebob", "philosoraptor"],
-    "calm": ["lofi", "owl"],
-    "anxious": ["nervous", "fry", "spiderman"],
+    "happy": ["success", "doge", "awesome", "harold", "excited-minions", "it-is-finished", "yuno"],
+    "sad": ["sad-biden", "crying-cat", "disastergirl", "sad-keanu", "awkward", "fine", "pika"],
+    "angry": ["grumpycat", "angry", "buzz", "disastergirl", "wonka", "spongeburn"],
+    "surprised": ["pikachu", "yuno", "distracted-bf", "blinking-guy", "spiderman", "shocked"],
+    "neutral": ["fine", "spongebob", "philosoraptor", "kevin-hart", "office", "patrick"],
+    "calm": ["lofi", "owl", "monk", "zen-master", "skyrim"],
+    "anxious": ["nervous", "fry", "spiderman", "clown", "sweating-button", "mr-bean"],
 }
 
 
