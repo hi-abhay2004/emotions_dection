@@ -54,9 +54,14 @@ def _safe_parse_json(text: str, result: RetrievalResult) -> dict[str, list[str]]
         songs = payload.get("songs")
         if not isinstance(movies, list) or not isinstance(songs, list):
             raise ValueError("Missing keys")
+        def extract_text(item: Any) -> str:
+            if isinstance(item, dict):
+                return str(item.get("reason") or item.get("text") or str(item))
+            return str(item)
+
         return {
-            "movies": [str(item) for item in movies],
-            "songs": [str(item) for item in songs],
+            "movies": [extract_text(item) for item in movies],
+            "songs": [extract_text(item) for item in songs],
         }
     except Exception:
         return {

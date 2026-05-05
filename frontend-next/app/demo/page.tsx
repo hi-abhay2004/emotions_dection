@@ -147,17 +147,17 @@ export default function DemoPage() {
             <div className="w-5 h-5 border border-[#00d8d6]/50 rotate-45 flex items-center justify-center group-hover:border-[#00d8d6] transition-colors">
               <div className="w-1.5 h-1.5 bg-[#00d8d6]/60 group-hover:bg-[#00d8d6] transition-colors" />
             </div>
-            <span className="font-mono text-[11px] tracking-[0.2em] text-[#555] group-hover:text-[#888] transition-colors uppercase">
+            <span className="font-mono text-xs tracking-[0.25em] text-[#888] group-hover:text-[#aaa] transition-colors uppercase">
               MoodSense AI
             </span>
           </Link>
 
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-6">
             {/* State indicator */}
-            <div className={`flex items-center gap-1.5 font-mono text-[10px] tracking-widest uppercase ${
+            <div className={`flex items-center gap-2 font-mono text-[11px] tracking-widest uppercase ${
               demoState === "analyzing" ? "text-[#f59e0b]" :
               demoState === "recording" ? "text-[#ef4444]" :
-              demoState === "done" ? "text-[#00d8d6]" : "text-[#333]"
+              demoState === "done" ? "text-[#00d8d6]" : "text-[#444]"
             }`}>
               <span className={`w-1.5 h-1.5 rounded-full ${
                 demoState === "analyzing" ? "bg-[#f59e0b] animate-pulse" :
@@ -170,7 +170,7 @@ export default function DemoPage() {
             {demoState === "done" && (
               <button
                 onClick={handleReset}
-                className="font-mono text-[10px] text-[#444] hover:text-[#888] tracking-widest uppercase transition-colors"
+                className="font-mono text-[11px] text-[#666] hover:text-[#aaa] tracking-widest uppercase transition-colors"
               >
                 Reset
               </button>
