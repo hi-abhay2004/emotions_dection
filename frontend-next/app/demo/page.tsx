@@ -3,7 +3,7 @@
 import { useState, useCallback, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
-import { analyzeSession, type SessionResult, type Recommendations } from "@/lib/api";
+import { analyzeSession, generateMeme, type SessionResult, type Recommendations } from "@/lib/api";
 import FaceScanner from "@/components/FaceScanner";
 import AudioWave from "@/components/AudioWave";
 import ResultCards from "@/components/ResultCards";
@@ -118,6 +118,22 @@ export default function DemoPage() {
     },
     []
   );
+
+  const handleRefreshMeme = useCallback(async () => {
+    if (!result?.mood_result || !result.recommendations) return;
+    try {
+      const movie = result.recommendations.movies[0]?.title;
+      const song = result.recommendations.songs[0]?.title;
+      const newMeme = await generateMeme({
+        mood: result.mood_result.final_mood || "neutral",
+        movie,
+        song
+      });
+      setResult(prev => prev ? { ...prev, meme: newMeme } : null);
+    } catch (err) {
+      console.error("Failed to refresh meme", err);
+    }
+  }, [result]);
 
   return (
     <div className="min-h-screen bg-[#050505]">
@@ -302,6 +318,7 @@ export default function DemoPage() {
                 <ResultCards
                   data={result}
                   isAnalyzing={demoState === "analyzing"}
+                  onRefreshMeme={handleRefreshMeme}
                 />
               </div>
             </div>

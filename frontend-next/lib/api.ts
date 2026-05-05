@@ -31,9 +31,12 @@ export interface Recommendations {
 }
 
 export interface MemeResult {
-  top_text: string | null;
-  bottom_text: string | null;
-  image_base64: string | null;
+  emotion?: string;
+  caption?: {
+    top: string;
+    bottom: string;
+  };
+  memeUrl: string | null;
   error?: string;
 }
 

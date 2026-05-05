@@ -180,9 +180,12 @@ def create_app() -> Flask:
                 )
 
                 meme_payload = {
-                    "top_text": caption["top_text"],
-                    "bottom_text": caption["bottom_text"],
-                    "image_base64": image_b64,
+                    "emotion": fused.get("final_mood", "neutral"),
+                    "caption": {
+                        "top": caption["top_text"],
+                        "bottom": caption["bottom_text"],
+                    },
+                    "memeUrl": image_b64,
                 }
                 metrics["meme_latency_ms"] = (time.perf_counter() - meme_start) * 1000
             except Exception as exc:
@@ -470,9 +473,12 @@ def create_app() -> Flask:
             image_b64 = render_meme(caption["top_text"], caption["bottom_text"], mood)
             return jsonify(
                 {
-                    "top_text": caption["top_text"],
-                    "bottom_text": caption["bottom_text"],
-                    "image_base64": image_b64,
+                    "emotion": mood,
+                    "caption": {
+                        "top": caption["top_text"],
+                        "bottom": caption["bottom_text"],
+                    },
+                    "memeUrl": image_b64,  # Now returns the URL string from renderer.py
                 }
             )
         except Exception as exc:

@@ -17,9 +17,10 @@ def generate_caption(config: dict, mood: str, movie: str | None, song: str | Non
     movie_text = movie or "a movie"
     song_text = song or "a song"
     prompt = (
-        "Create a short, kind meme caption. Keep it supportive and light. "
-        "Use the mood and media context. Return JSON with top_text and bottom_text.\n\n"
-        f"Mood: {mood}\nMovie: {movie_text}\nSong: {song_text}"
+        f"Generate a short funny meme caption for a person feeling {mood}. "
+        "Keep it under 8 words per line, 2 lines max. "
+        "Context: The user was just recommended the movie '" + movie_text + "' and the song '" + song_text + "'. "
+        "Return ONLY a JSON object with 'top_text' and 'bottom_text'."
     )
 
     try:

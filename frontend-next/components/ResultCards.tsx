@@ -13,6 +13,7 @@ type ResultData = Pick<SessionResult, "mood_result" | "recommendations" | "meme"
 interface ResultCardsProps {
   data: ResultData | null;
   isAnalyzing: boolean;
+  onRefreshMeme?: () => void;
 }
 
 const MOODS_EMOJI: Record<string, string> = {
@@ -183,7 +184,7 @@ export default function ResultCards({ data, isAnalyzing }: ResultCardsProps) {
         )}
 
         {/* Card 4 — Meme */}
-        {meme?.image_base64 && (
+        {meme?.memeUrl && (
           <motion.div
             key="meme"
             custom={3}
@@ -192,9 +193,10 @@ export default function ResultCards({ data, isAnalyzing }: ResultCardsProps) {
             animate="visible"
           >
             <MemeCard
-              imageBase64={meme.image_base64}
-              topText={meme.top_text}
-              bottomText={meme.bottom_text}
+              memeUrl={meme.memeUrl}
+              top={meme.caption?.top ?? null}
+              bottom={meme.caption?.bottom ?? null}
+              onRefresh={onRefreshMeme}
             />
           </motion.div>
         )}
