@@ -1,0 +1,139 @@
+@import "tailwindcss";
+
+@theme {
+  /* Colors */
+  --color-void: #050505;
+  --color-surface: #0d0d0d;
+  --color-panel: #111111;
+  --color-border: rgba(255, 255, 255, 0.07);
+  --color-border-subtle: rgba(255, 255, 255, 0.04);
+  --color-text-primary: #f0f0f0;
+  --color-text-secondary: #888888;
+  --color-text-muted: #444444;
+  --color-cyan: #00d8d6;
+  --color-cyan-dim: rgba(0, 216, 214, 0.15);
+  --color-amber: #f59e0b;
+  --color-amber-dim: rgba(245, 158, 11, 0.15);
+  --color-error: #ef4444;
+
+  /* Fonts */
+  --font-display: "Space Grotesk", sans-serif;
+  --font-body: "Inter", sans-serif;
+  --font-mono: "JetBrains Mono", monospace;
+
+  /* Animations */
+  --animate-scanline: scanline 4s linear infinite;
+  --animate-pulse-slow: pulse 3s ease-in-out infinite;
+  --animate-blink: blink 1s step-end infinite;
+  --animate-flicker: flicker 0.15s infinite;
+}
+
+@keyframes scanline {
+  0% { transform: translateY(-100%); }
+  100% { transform: translateY(100vh); }
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+@keyframes flicker {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.95; }
+}
+
+@keyframes slideUpFade {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes shimmer {
+  0%   { background-position: -400px 0; }
+  100% { background-position: 400px 0; }
+}
+
+/* Base resets */
+*, *::before, *::after { box-sizing: border-box; }
+
+html, body {
+  background-color: #050505;
+  color: #f0f0f0;
+  font-family: "Inter", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  scroll-behavior: smooth;
+  height: 100%;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: #050505; }
+::-webkit-scrollbar-thumb { background: #222; border-radius: 2px; }
+::-webkit-scrollbar-thumb:hover { background: #333; }
+
+/* Selection */
+::selection { background: rgba(0, 216, 214, 0.2); color: #f0f0f0; }
+
+/* Glass panel utility */
+.glass {
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: 8px;
+}
+
+/* Scan line overlay effect */
+.scanlines::after {
+  content: "";
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0, 0, 0, 0.03) 2px,
+    rgba(0, 0, 0, 0.03) 4px
+  );
+  pointer-events: none;
+  z-index: 9999;
+}
+
+/* Shimmer skeleton */
+.skeleton {
+  background: linear-gradient(90deg, #111 25%, #1a1a1a 50%, #111 75%);
+  background-size: 400px 100%;
+  animation: shimmer 1.5s infinite;
+}
+
+/* Display font utility */
+.font-display { font-family: "Space Grotesk", sans-serif; }
+.font-mono { font-family: "JetBrains Mono", monospace; }
+
+/* Cyan accent glow (subtle only) */
+.cyan-glow {
+  box-shadow: 0 0 12px rgba(0, 216, 214, 0.08), 0 0 1px rgba(0, 216, 214, 0.4);
+}
+
+/* Corner border decoration */
+.corner-border {
+  position: relative;
+}
+.corner-border::before,
+.corner-border::after {
+  content: "";
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  border-color: rgba(0, 216, 214, 0.6);
+  border-style: solid;
+}
+.corner-border::before {
+  top: 0; left: 0;
+  border-width: 1px 0 0 1px;
+}
+.corner-border::after {
+  bottom: 0; right: 0;
+  border-width: 0 1px 1px 0;
+}

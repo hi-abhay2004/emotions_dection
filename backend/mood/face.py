@@ -18,7 +18,7 @@ except ImportError:  # pragma: no cover - optional dependency
 
 @dataclass
 class FaceConfig:
-    min_valid_frames: int = 10
+    min_valid_frames: int = 5
     brightness_min: float = 40.0
     blur_min: float = 40.0
 

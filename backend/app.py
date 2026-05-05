@@ -506,5 +506,16 @@ def _average_context_utilization(items: list[dict]) -> float:
 
 
 if __name__ == "__main__":
+    print("\n" + "="*50)
+    print(" [AI SYSTEM] INITIALIZING NEURAL LAYERS...")
+    print(" [AI SYSTEM] LOADING MODELS (Torch, TF, Transformers)...")
+    print(" [AI SYSTEM] PLEASE WAIT - 60+ seconds expected.")
+    print("="*50 + "\n")
+    
     app = create_app()
-    app.run(host="0.0.0.0", port=5000, debug=app.config.get("FLASK_DEBUG", False))
+    app.run(
+        host="0.0.0.0", 
+        port=5000, 
+        debug=app.config.get("FLASK_DEBUG", False),
+        use_reloader=False
+    )

@@ -6,35 +6,48 @@ from dataclasses import dataclass
 from functools import lru_cache
 from typing import Any
 import os
+import warnings
+
+# Suppress heavy library logs and noise
+os.environ["TF_CPP_MIN_LOG_LEVEL"] = "3"
+os.environ["TF_ENABLE_ONEDNN_OPTS"] = "0"
+warnings.filterwarnings("ignore", category=RuntimeWarning, module="pydub")
+
+print("\n[AI SYSTEM] Initializing Neural Layers...")
+print("[AI SYSTEM] Loading heavy models (Torch, TensorFlow, Transformers)...")
+print("[AI SYSTEM] PLEASE WAIT - This can take 1-3 minutes on first run.\n")
 
 import numpy as np
 
 from .mapping import emotion_to_valence_arousal, normalize_label
 
+# Optional ffmpeg via pip (no system install). If available, add its dir to PATH.
+_ffmpeg_exe = None
+try:
+    import imageio_ffmpeg  # type: ignore
+
+    _ffmpeg_exe = imageio_ffmpeg.get_ffmpeg_exe()
+    if _ffmpeg_exe:
+        os.environ["PATH"] = os.path.dirname(_ffmpeg_exe) + os.pathsep + os.environ.get("PATH", "")
+except Exception:
+    pass
+
 try:
     import librosa
     import soundfile as sf
     from transformers import pipeline
-except ImportError:  # pragma: no cover - optional dependency
+except ImportError:
     librosa = None
     sf = None
     pipeline = None
 
 try:
     from pydub import AudioSegment
-except ImportError:  # pragma: no cover - optional dependency
+
+    if AudioSegment and _ffmpeg_exe:
+        AudioSegment.converter = _ffmpeg_exe
+except ImportError:
     AudioSegment = None
-
-# Optional ffmpeg via pip (no system install). If available, add its dir to PATH.
-try:  # pragma: no cover - runtime environment dependent
-    import imageio_ffmpeg  # type: ignore
-
-    _ffmpeg_exe = imageio_ffmpeg.get_ffmpeg_exe()
-    if _ffmpeg_exe:
-        _ffmpeg_dir = os.path.dirname(_ffmpeg_exe)
-        os.environ["PATH"] = _ffmpeg_dir + os.pathsep + os.environ.get("PATH", "")
-except Exception:  # pragma: no cover
-    pass
 
 
 @dataclass

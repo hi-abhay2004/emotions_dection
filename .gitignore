@@ -2,10 +2,18 @@
 __pycache__/
 *.pyc
 .venv/
+.venv312/
 .env
+.env.*
+!.env.example
 
-# OS
-.DS_Store
+# Build / Node
+.next/
+node_modules/
+dist/
+build/
+frontend-next/.next/
+frontend-next/node_modules/
 
 # App data / indices / outputs
 data/chroma/
