@@ -1,0 +1,6 @@
+id,type,title,description,genre,mood_tags,valence,arousal,rating,language
+movie-1,movie,Inside Out,An animated story about emotions and resilience.,Animation|Comedy|Drama,sad|hopeful|comforting,0.45,0.35,8.1,English
+movie-2,movie,The Pursuit of Happyness,A motivational story about perseverance and hope.,Drama|Biography,hopeful|uplifting,0.55,0.40,8.0,English
+movie-3,movie,Spirited Away,A surreal adventure with gentle wonder.,Animation|Fantasy,calm|wonder,0.40,0.30,8.6,English
+movie-4,movie,Whiplash,An intense story about ambition and pressure.,Drama|Music,tense|focused,-0.10,0.80,8.5,English
+movie-5,movie,Amelie,A whimsical story with warm optimism.,Romance|Comedy,joyful|light,0.70,0.45,8.3,French

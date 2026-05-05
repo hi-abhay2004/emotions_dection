@@ -1,0 +1,6 @@
+id,type,title,description,genre,mood_tags,valence,arousal,rating,language
+song-1,song,Fix You,A gentle, emotional song that builds hope.,Alternative Rock,sad|healing|hopeful,0.20,0.30,9.0,English
+song-2,song,Here Comes the Sun,Upbeat and warm melody to lift mood.,Rock|Pop,bright|uplifting,0.75,0.55,8.8,English
+song-3,song,Clair de Lune,Soft and calming classical piece.,Classical,calm|soothing,0.35,0.15,8.7,French
+song-4,song,Weightless,Ambient track designed to reduce stress.,Ambient,relaxed|calm,0.30,0.10,8.5,English
+song-5,song,Stronger,High-energy track that boosts confidence.,Pop|Electronic,energized|confident,0.80,0.70,8.4,English

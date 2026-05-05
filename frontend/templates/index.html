@@ -1,0 +1,243 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>AI Mood Detection</title>
+    <link rel="stylesheet" href="/static/styles.css" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Fraunces:wght@500;700&family=Space+Grotesk:wght@400;600&display=swap"
+    />
+  </head>
+  <body>
+    <div class="ambient"></div>
+    <main class="app">
+      <header class="app__header">
+        <div class="brand">
+          <span class="brand__spark"></span>
+          <div>
+            <p class="brand__tag">Mood Engine</p>
+            <h1>Pulse &amp; Palette</h1>
+          </div>
+        </div>
+        <nav class="app__nav">
+          <button class="ghost" data-action="restart">Restart</button>
+        </nav>
+      </header>
+
+      <section class="screen active" data-screen="landing">
+        <div class="screen__content">
+          <h2>See your mood, hear your vibe.</h2>
+          <p>
+            We read your expressions and voice tone, then recommend music, films, and a
+            small dose of humor.
+          </p>
+          <div class="cta-row">
+            <button class="primary" data-action="start">Start Mood Session</button>
+            <button class="ghost" data-action="skip">Try without sensors</button>
+            <button class="ghost" data-action="upload">Upload dataset</button>
+          </div>
+        </div>
+        <div class="screen__panel">
+          <div class="panel-card">
+            <h3>Signals we use</h3>
+            <ul>
+              <li>Face expression snapshots</li>
+              <li>Voice energy + tone</li>
+              <li>Optional preferences</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section class="screen" data-screen="permissions">
+        <div class="screen__content">
+          <h2>Permissions</h2>
+          <p>We only analyze what you choose to share. You can continue with one input.</p>
+          <div class="permission-grid">
+            <button class="primary" data-action="enable-camera">Enable Camera</button>
+            <button class="primary" data-action="enable-mic">Enable Microphone</button>
+            <button class="ghost" data-action="to-preferences">Continue</button>
+          </div>
+          <p class="status" data-status="permissions"></p>
+        </div>
+      </section>
+
+      <section class="screen" data-screen="upload">
+        <div class="screen__content">
+          <h2>Upload dataset</h2>
+          <p>Upload PDF, DOCX, or CSV files to build your recommendation index.</p>
+          <div class="form-grid">
+            <label>
+              Select files
+              <input id="upload-files" type="file" multiple />
+            </label>
+          </div>
+          <div class="cta-row">
+            <button class="primary" data-action="submit-upload">Upload &amp; Build</button>
+            <button class="ghost" data-action="start">Back</button>
+            <button class="ghost" data-action="build-default">Build index from data/</button>
+          </div>
+          <p class="status" data-status="upload"></p>
+        </div>
+      </section>
+
+      <section class="screen" data-screen="preferences">
+        <div class="screen__content">
+          <h2>Your preferences</h2>
+          <div class="form-grid">
+            <label>
+              Content type
+              <select id="pref-content-type">
+                <option value="both">Movies and Songs</option>
+                <option value="movies">Movies only</option>
+                <option value="songs">Songs only</option>
+              </select>
+            </label>
+            <label>
+              Recommendation goal
+              <select id="pref-goal">
+                <option value="match">Match my mood</option>
+                <option value="improve">Lift my mood</option>
+              </select>
+            </label>
+            <label>
+              Manual mood
+              <select id="pref-manual-mood">
+                <option value="">Use sensor detection</option>
+                <option value="happy">Happy</option>
+                <option value="sad">Sad</option>
+                <option value="calm">Calm</option>
+                <option value="angry">Angry</option>
+                <option value="neutral">Neutral</option>
+                <option value="anxious">Anxious</option>
+              </select>
+            </label>
+            <label>
+              Language
+              <input id="pref-language" placeholder="English" />
+            </label>
+            <label>
+              Genres (comma separated)
+              <input id="pref-genres" placeholder="Drama, Pop" />
+            </label>
+            <label>
+              Exclude genres (comma separated)
+              <input id="pref-exclude-genres" placeholder="Horror" />
+            </label>
+            <label class="toggle">
+              <input id="pref-hide-explicit" type="checkbox" />
+              Hide explicit content
+            </label>
+          </div>
+          <div class="cta-row">
+            <button class="primary" data-action="to-capture">Capture mood</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="screen" data-screen="capture">
+        <div class="screen__content">
+          <h2>Capture</h2>
+          <p>Look at the camera and speak naturally for 7 seconds.</p>
+          <div class="capture-grid">
+            <div class="video-card">
+              <video id="camera" autoplay muted playsinline></video>
+            </div>
+            <div class="audio-card">
+              <div class="audio-visual" id="audio-visual"></div>
+              <p class="audio-hint">Recording indicator will animate when active.</p>
+            </div>
+          </div>
+          <div class="cta-row">
+            <button class="primary" data-action="record">Start recording</button>
+            <button class="ghost" data-action="retake">Retake</button>
+            <button class="ghost" data-action="analyze">Analyze mood</button>
+          </div>
+          <p class="status" data-status="capture"></p>
+        </div>
+      </section>
+
+      <section class="screen" data-screen="processing">
+        <div class="screen__content">
+          <h2>Processing</h2>
+          <p id="processing-text">Analyzing face and audio signals...</p>
+          <div class="loader"></div>
+        </div>
+      </section>
+
+      <section class="screen" data-screen="results">
+        <div class="screen__content">
+          <h2>Results</h2>
+          <div class="result-grid">
+            <div class="panel-card">
+              <h3>Detected mood</h3>
+              <p id="result-mood">--</p>
+              <p id="result-confidence">Confidence: --</p>
+              <p id="result-va">Valence/Arousal: --</p>
+              <canvas id="result-va-chart" width="200" height="200"></canvas>
+            </div>
+            <div class="panel-card">
+              <h3>Meme</h3>
+              <img id="result-meme" alt="Generated meme" />
+              <p id="result-meme-text"></p>
+            </div>
+          </div>
+          <p id="result-error" class="status"></p>
+          <div class="recommend-grid">
+            <div>
+              <h3>Movies</h3>
+              <ul id="result-movies"></ul>
+            </div>
+            <div>
+              <h3>Songs</h3>
+              <ul id="result-songs"></ul>
+            </div>
+          </div>
+          <p id="recommendation-error" class="status"></p>
+          <div class="cta-row">
+            <button class="primary" data-action="to-feedback">Give feedback</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="screen" data-screen="feedback">
+        <div class="screen__content">
+          <h2>Feedback</h2>
+          <div class="form-grid">
+            <label>
+              Was the mood accurate?
+              <select id="feedback-accuracy">
+                <option>Yes</option>
+                <option>Somewhat</option>
+                <option>No</option>
+              </select>
+            </label>
+            <label>
+              Did you like the recommendations?
+              <select id="feedback-like">
+                <option>Yes</option>
+                <option>Somewhat</option>
+                <option>No</option>
+              </select>
+            </label>
+          </div>
+          <div class="cta-row">
+            <button class="primary" data-action="finish">Finish</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="screen" data-screen="end">
+        <div class="screen__content">
+          <h2>Session complete</h2>
+          <p>Thanks for sharing your mood today.</p>
+          <button class="primary" data-action="restart">Start again</button>
+        </div>
+      </section>
+    </main>
+
+    <script src="/static/app.js"></script>
+  </body>
+</html>

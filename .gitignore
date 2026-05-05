@@ -1,0 +1,19 @@
+# Python
+__pycache__/
+*.pyc
+.venv/
+.env
+
+# OS
+.DS_Store
+
+# App data / indices / outputs
+data/chroma/
+scripts/data/chroma/
+data/feedback.jsonl
+
+# Models (if any large local weights are placed here)
+models/
+
+# VS Code
+.vscode/
