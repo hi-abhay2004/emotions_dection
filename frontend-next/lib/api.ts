@@ -68,9 +68,11 @@ async function request<T>(
     headers: { "Content-Type": "application/json", ...options.headers },
     ...options,
   });
+  console.log(`[API] ${path} response:`, res.status);
   if (!res.ok) {
-    const err = await res.json().catch(() => ({ reason: res.statusText }));
-    throw new Error(err.reason ?? `HTTP ${res.status}`);
+    const text = await res.text();
+    console.error(`[API] ${path} error body:`, text);
+    throw new Error(`HTTP ${res.status}: ${text.slice(0, 100)}`);
   }
   return res.json() as Promise<T>;
 }

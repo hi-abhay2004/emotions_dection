@@ -42,7 +42,7 @@ const cardVariants = {
   }),
 };
 
-export default function ResultCards({ data, isAnalyzing }: ResultCardsProps) {
+export default function ResultCards({ data, isAnalyzing, onRefreshMeme }: ResultCardsProps) {
   if (!isAnalyzing && !data) {
     return (
       <div className="space-y-3">
